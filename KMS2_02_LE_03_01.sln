@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.9.34728.123
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KMS2_02_LE_03_01", "KMS2_02_LE_03_01\KMS2_02_LE_03_01.csproj", "{DBF0D3ED-0041-4A21-815E-87E3DB4D06F1}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{DBF0D3ED-0041-4A21-815E-87E3DB4D06F1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DBF0D3ED-0041-4A21-815E-87E3DB4D06F1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DBF0D3ED-0041-4A21-815E-87E3DB4D06F1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DBF0D3ED-0041-4A21-815E-87E3DB4D06F1}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {F2EA0C28-A4B7-46A9-BD98-A0AAD388F122}
+	EndGlobalSection
+EndGlobal

@@ -1,0 +1,52 @@
+﻿<Window x:Class="KMS2_02_LE_03_01.View.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:KMS2_02_LE_03_01.ViewModel"
+        xmlns:view="clr-namespace:KMS2_02_LE_03_01.View"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="600" Width="900">
+    <Window.DataContext>
+        <local:MainViewModel />
+    </Window.DataContext>
+
+    <Window.Resources>
+        <DataTemplate DataType="{x:Type local:WallStreetViewModel}">
+            <view:WallstreetView />
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type local:ForexViewModel}">
+            <view:ForexView />
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type local:WeatherViewModel}">
+            <view:WeatherView />
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type local:IssViewModel}">
+            <view:IssView />
+        </DataTemplate>
+    </Window.Resources>
+
+    <Grid Margin="10">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="160"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="50"/>
+        </Grid.RowDefinitions>
+
+        <!-- Buttons -->
+        <StackPanel Grid.Row="0" Grid.Column="0" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="0,0,10,0">
+            <Button x:Name="btnWallstreet" Content="Wallstreet News" Width="140" Margin="0,10,0,10" Command="{Binding WallStreetCommand}"/>
+            <Button x:Name="btnWeather" Content="Weather" Width="140" Command="{Binding WeatherCommand}"/>
+        </StackPanel>
+
+        <!-- Content Control for Views -->
+        <ContentControl Grid.Row="0" Grid.RowSpan="2" Grid.Column="1" Content="{Binding CurrentFirstViewModel}" Margin="10" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
+
+        <!-- Scrolling Text for Forex Data -->
+        <ContentControl Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" Content="{Binding CurrentSecondViewModel}" Margin="10,0,10,10" HorizontalAlignment="Stretch" VerticalAlignment="Bottom"/>
+    </Grid>
+</Window>
