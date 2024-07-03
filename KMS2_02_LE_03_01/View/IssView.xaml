@@ -4,9 +4,28 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:KMS2_02_LE_03_01.View"
+             xmlns:view="clr-namespace:KMS2_02_LE_03_01.ViewModel"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
+             d:DesignHeight="50" d:DesignWidth="300">
+
+    <UserControl.Resources>
+        <view:IssViewModel x:Key="IssViewModel"/>
+    </UserControl.Resources>
     <Grid>
-            
+        <Image Source="pack://application:,,,/Image/mapISS.png" Stretch="Fill" />
+        <Ellipse Width="10" Height="10" Fill="Red">
+            <Ellipse.RenderTransform>
+                <TranslateTransform X="{Binding IssPosition.X}" Y="{Binding IssPosition.Y}"/>
+            </Ellipse.RenderTransform>
+            <Ellipse.Triggers>
+                <EventTrigger RoutedEvent="FrameworkElement.Loaded">
+                    <BeginStoryboard>
+                        <Storyboard RepeatBehavior="Forever" AutoReverse="True">
+                            <DoubleAnimation Storyboard.TargetProperty="Opacity" From="1.0" To="0.0" Duration="0:0:1" />
+                        </Storyboard>
+                    </BeginStoryboard>
+                </EventTrigger>
+            </Ellipse.Triggers>
+        </Ellipse>
     </Grid>
 </UserControl>

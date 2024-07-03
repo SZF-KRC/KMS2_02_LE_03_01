@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using System;
+using System.Windows;
 
 namespace KMS2_02_LE_03_01.View
 {
@@ -10,6 +11,15 @@ namespace KMS2_02_LE_03_01.View
         public MainWindow()
         {
             InitializeComponent();
+            this.Closing += OnWindowClosing;
+        }
+
+        private void OnWindowClosing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            if (DataContext is IDisposable disposable)
+            {
+                disposable.Dispose();
+            }
         }
     }
 }

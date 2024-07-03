@@ -242,7 +242,7 @@ namespace KMS2_02_LE_03_01.ViewModel
             double latitude = topLeftLat + (bottomRightLat - topLeftLat) * (adjustedY / 1770);
 
             // Korekcia Longitude na základe zistených odchýlok
-            longitude += 13.19;  // upravenie na základe zistených odchýlok
+            longitude += 13.195;  // upravenie na základe zistených odchýlok
 
             // Korekcia Latitude na základe zistených odchýlok
             latitude -= -1.355;  // upravenie na základe zistených odchýlok

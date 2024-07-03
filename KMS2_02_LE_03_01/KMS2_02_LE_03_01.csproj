@@ -74,7 +74,8 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Model\ForexModel\Forex.cs" />
-    <Compile Include="Model\Iss.cs" />
+    <Compile Include="Model\IssModel\IssPosition.cs" />
+    <Compile Include="Model\IssModel\IssPositionResponse.cs" />
     <Compile Include="Model\WallStreetModel\Article.cs" />
     <Compile Include="Model\WallStreetModel\NewsApiResponse.cs" />
     <Compile Include="Model\WallStreetModel\Source.cs" />
@@ -162,11 +163,12 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Model\IssModel\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Resource Include="Image\new-map-of-europe.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Image\mapISS.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

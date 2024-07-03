@@ -46,7 +46,7 @@
         <!-- Content Control for Views -->
         <ContentControl Grid.Row="0" Grid.RowSpan="2" Grid.Column="1" Content="{Binding CurrentFirstViewModel}" Margin="10" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
 
-        <!-- Scrolling Text for Forex Data -->
-        <ContentControl Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" Content="{Binding CurrentSecondViewModel}" Margin="10,0,10,10" HorizontalAlignment="Stretch" VerticalAlignment="Bottom"/>
+        <!-- extra Data -->
+        <ContentControl Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2" Content="{Binding CurrentSecondViewModel}" Margin="10,0,10,0" HorizontalAlignment="Stretch" VerticalAlignment="Bottom"/>
     </Grid>
 </Window>
