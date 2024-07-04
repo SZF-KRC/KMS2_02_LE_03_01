@@ -1,14 +1,17 @@
-﻿using System;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Input;
-using GalaSoft.MvvmLight.Command;
+﻿using GalaSoft.MvvmLight.Command;
 using KMS2_02_LE_03_01.Manager.ApiManager;
 using KMS2_02_LE_03_01.Model.WeatherModel;
 using KMS2_02_LE_03_01.MVVM;
+using System;
+using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Input;
 
 namespace KMS2_02_LE_03_01.ViewModel
 {
+    /// <summary>
+    /// ViewModel for handling and displaying weather data.
+    /// </summary>
     public class WeatherViewModel : ViewModelBase
     {
         private double _scale = 1.0;
@@ -20,6 +23,9 @@ namespace KMS2_02_LE_03_01.ViewModel
         private string _cityName;
         private double _temperature;
 
+        /// <summary>
+        /// Gets or sets the name of the city.
+        /// </summary>
         public string CityName
         {
             get => _cityName;
@@ -30,6 +36,9 @@ namespace KMS2_02_LE_03_01.ViewModel
             }
         }
 
+        /// <summary>
+        /// Gets or sets the temperature in the city.
+        /// </summary>
         public double Temperature
         {
             get => _temperature;
@@ -40,6 +49,9 @@ namespace KMS2_02_LE_03_01.ViewModel
             }
         }
 
+        /// <summary>
+        /// Gets or sets the scale of the image.
+        /// </summary>
         public double Scale
         {
             get => _scale;
@@ -53,6 +65,9 @@ namespace KMS2_02_LE_03_01.ViewModel
             }
         }
 
+        /// <summary>
+        /// Gets or sets the horizontal offset of the image.
+        /// </summary>
         public double OffsetX
         {
             get => _offsetX;
@@ -66,6 +81,9 @@ namespace KMS2_02_LE_03_01.ViewModel
             }
         }
 
+        /// <summary>
+        /// Gets or sets the vertical offset of the image.
+        /// </summary>
         public double OffsetY
         {
             get => _offsetY;
@@ -79,9 +97,15 @@ namespace KMS2_02_LE_03_01.ViewModel
             }
         }
 
+        /// <summary>
+        /// Asynchronously fetches weather data for the given longitude and latitude.
+        /// </summary>
+        /// <param name="longitude">The longitude of the location.</param>
+        /// <param name="latitude">The latitude of the location.</param>
+        /// <returns>A task representing the asynchronous operation.</returns>
         private async Task GetWeatherData(double longitude, double latitude)
         {
-            string apiKey = "4a7fbcd13ef5dbdacea313d5329b1221"; 
+            string apiKey = "your_api_key";
             string url = $"https://api.openweathermap.org/data/2.5/weather?lat={latitude}&lon={longitude}&units=metric&appid={apiKey}";
 
             var weatherData = await ApiClient.GetDataFromApi<WeatherData>(url);
@@ -90,7 +114,7 @@ namespace KMS2_02_LE_03_01.ViewModel
                 CityName = weatherData.name;
                 Temperature = weatherData.main.temp;
 
-                // Zobrazenie MessageBoxu s názvom mesta a teplotou v Celziach
+                // Displaying a MessageBox with the city name and temperature in Celsius
                 MessageBox.Show($"City: {CityName}, Temperature: {Temperature:F2}°C");
             }
         }
@@ -99,7 +123,11 @@ namespace KMS2_02_LE_03_01.ViewModel
         public ICommand MouseMoveCommand => new RelayCommand<MouseEventArgs>(OnMouseMove);
         public ICommand MouseWheelCommand => new RelayCommand<MouseWheelEventArgs>(OnMouseWheel);
 
-        private async  void OnMouseDown(MouseButtonEventArgs e)
+        /// <summary>
+        /// Handles mouse down events to fetch weather data or initiate image panning.
+        /// </summary>
+        /// <param name="e">The mouse button event arguments.</param>
+        private async void OnMouseDown(MouseButtonEventArgs e)
         {
             if (e == null)
             {
@@ -121,7 +149,7 @@ namespace KMS2_02_LE_03_01.ViewModel
                 double coordinatX = Math.Round(coords.X, 2);
                 double coordinatY = Math.Round(coords.Y, 2);
                 await GetWeatherData(coordinatX, coordinatY);
-                MessageBox.Show($"OnMouseDown: Longitude: {coords.X}, Latitude: {coords.Y}");
+                // MessageBox.Show($"OnMouseDown: Longitude: {coords.X}, Latitude: {coords.Y}");
 
             }
             else if (e.ChangedButton == MouseButton.Right)
@@ -132,8 +160,10 @@ namespace KMS2_02_LE_03_01.ViewModel
             }
         }
 
-
-
+        /// <summary>
+        /// Handles mouse move events to pan the image if the right mouse button is pressed.
+        /// </summary>
+        /// <param name="e">The mouse event arguments.</param>
         private void OnMouseMove(MouseEventArgs e)
         {
             if (e == null)
@@ -178,6 +208,11 @@ namespace KMS2_02_LE_03_01.ViewModel
                 Mouse.Capture(null);
             }
         }
+
+        /// <summary>
+        /// Handles mouse wheel events to zoom the image in and out.
+        /// </summary>
+        /// <param name="e">The mouse wheel event arguments.</param>
         private void OnMouseWheel(MouseWheelEventArgs e)
         {
             if (e == null)
@@ -219,40 +254,40 @@ namespace KMS2_02_LE_03_01.ViewModel
             OffsetY = Math.Max(minOffsetY, Math.Min(OffsetY, maxOffsetY));
         }
 
+        /// <summary>
+        /// Converts pixel coordinates to geographical coordinates.
+        /// </summary>
+        /// <param name="pixelPoint">The point in pixel coordinates.</param>
+        /// <returns>A point representing the geographical coordinates.</returns>
         private Point ConvertToRealCoordinates(Point pixelPoint)
         {
-            // Definovanie hraničných súradníc
+            // Defining boundary coordinates
             double topLeftLat = 71.106327;
             double topLeftLong = -29.508295;
             double bottomRightLat = 31.771676;
             double bottomRightLong = 55.816731;
 
-            // Veľkosť obrázka (rozmer v pixeloch)
-            double imageWidth = 900; // skutočná šírka obrázka
-            double imageHeight = 500; // skutočná výška obrázka
+            // Image dimensions (in pixels)
+            double imageWidth = 900; 
+            double imageHeight = 500;
 
-            // Prepočet súradníc z hľadiska rozloženia zobrazenia
+            // Adjust coordinates according to the display layout
             double adjustedX = pixelPoint.X * (2500 / imageWidth);
             double adjustedY = pixelPoint.Y * (1770 / imageHeight);
 
-            // Lineárna interpolácia pre Longitude (západ-východ)
+            // Linear interpolation for Longitude (west-east)
             double longitude = topLeftLong + (bottomRightLong - topLeftLong) * (adjustedX / 2500);
 
-            // Lineárna interpolácia pre Latitude (sever-juh)
+            // Linear interpolation for Latitude (north-south)
             double latitude = topLeftLat + (bottomRightLat - topLeftLat) * (adjustedY / 1770);
 
-            // Korekcia Longitude na základe zistených odchýlok
-            longitude += 13.195;  // upravenie na základe zistených odchýlok
+            // Longitude correction based on observed deviations
+            longitude += 13.195;  // adjust based on observed deviations
 
-            // Korekcia Latitude na základe zistených odchýlok
-            latitude -= -1.355;  // upravenie na základe zistených odchýlok
+            // Latitude correction based on observed deviations
+            latitude -= -1.355; // adjust based on observed deviations
 
             return new Point(longitude, latitude);
         }
-
-
-
-
-
     }
 }

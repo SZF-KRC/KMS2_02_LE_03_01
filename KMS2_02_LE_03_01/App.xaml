@@ -4,6 +4,10 @@
              xmlns:local="clr-namespace:KMS2_02_LE_03_01"
              StartupUri="View/MainWindow.xaml">
     <Application.Resources>
- 
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="Style/ButtonStyles/ButtonMainStyles.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
     </Application.Resources>
 </Application>

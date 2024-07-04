@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:KMS2_02_LE_03_01.ViewModel"
         xmlns:view="clr-namespace:KMS2_02_LE_03_01.View"
         mc:Ignorable="d"
-        Title="MainWindow" Height="600" Width="900">
+        Title="Good Morning World" Height="600" Width="900" Background="#FFAFF3EC" ResizeMode="NoResize">
     <Window.DataContext>
         <local:MainViewModel />
     </Window.DataContext>
@@ -24,6 +24,9 @@
         <DataTemplate DataType="{x:Type local:IssViewModel}">
             <view:IssView />
         </DataTemplate>
+        <DataTemplate DataType="{x:Type local:WelcomeViewModel}">
+            <view:WelcomeView />
+        </DataTemplate>
     </Window.Resources>
 
     <Grid Margin="10">
@@ -38,15 +41,15 @@
         </Grid.RowDefinitions>
 
         <!-- Buttons -->
-        <StackPanel Grid.Row="0" Grid.Column="0" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="0,0,10,0">
-            <Button x:Name="btnWallstreet" Content="Wallstreet News" Width="140" Margin="0,10,0,10" Command="{Binding WallStreetCommand}"/>
-            <Button x:Name="btnWeather" Content="Weather" Width="140" Command="{Binding WeatherCommand}"/>
+        <StackPanel Grid.Row="0" Grid.Column="0" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="0,150,10,0">
+            <Button x:Name="btnWallstreet" Content="Wallstreet" Width="140" Margin="0,10,0,100" Command="{Binding WallStreetCommand}" Style="{StaticResource MainButtonStyle}"/>
+            <Button x:Name="btnWeather" Content="Weather" Width="140" Command="{Binding WeatherCommand}" Style="{StaticResource MainButtonStyle}"/>
         </StackPanel>
 
         <!-- Content Control for Views -->
-        <ContentControl Grid.Row="0" Grid.RowSpan="2" Grid.Column="1" Content="{Binding CurrentFirstViewModel}" Margin="10" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
+        <ContentControl Grid.Row="0" Grid.RowSpan="2" Grid.Column="1" Content="{Binding CurrentFirstViewModel}" Margin="10" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="#FFA0B4C7"/>
 
         <!-- extra Data -->
-        <ContentControl Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2" Content="{Binding CurrentSecondViewModel}" Margin="10,0,10,0" HorizontalAlignment="Stretch" VerticalAlignment="Bottom"/>
+        <ContentControl Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2" Content="{Binding CurrentSecondViewModel}" Margin="10,0,10,0" HorizontalAlignment="Stretch" VerticalAlignment="Bottom" Background="#FFA0B4C7"/>
     </Grid>
 </Window>

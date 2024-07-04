@@ -4,7 +4,7 @@ using System.Windows.Input;
 namespace KMS2_02_LE_03_01.MVVM
 {
     /// <summary>
-    /// Eine Implementierung von ICommand, die zum Binden von Befehlen an die Benutzeroberfläche verwendet wird.
+    /// An implementation of ICommand used for binding commands to the user interface.
     /// </summary>
     public class CustomRelayCommand : ICommand
     {
@@ -12,11 +12,11 @@ namespace KMS2_02_LE_03_01.MVVM
         private readonly Func<bool> _canExecute;
 
         /// <summary>
-        /// Initialisiert eine neue Instanz der CustomRelayCommand-Klasse.
+        /// Initializes a new instance of the CustomRelayCommand class.
         /// </summary>
-        /// <param name="execute">Die Aktion, die beim Ausführen des Befehls ausgeführt wird.</param>
-        /// <param name="canExecute">Die Funktion, die bestimmt, ob der Befehl ausgeführt werden kann.</param>
-        /// <exception cref="ArgumentNullException">Wird ausgelöst, wenn das execute-Argument null ist.</exception>
+        /// <param name="execute">The action to be executed when the command is invoked.</param>
+        /// <param name="canExecute">The function that determines whether the command can execute.</param>
+        /// <exception cref="ArgumentNullException">Thrown if the execute argument is null.</exception>
         public CustomRelayCommand(Action execute, Func<bool> canExecute = null)
         {
             _execute = execute ?? throw new ArgumentNullException(nameof(execute));
@@ -24,26 +24,26 @@ namespace KMS2_02_LE_03_01.MVVM
         }
 
         /// <summary>
-        /// Überprüft, ob der Befehl ausgeführt werden kann.
+        /// Determines whether the command can execute.
         /// </summary>
-        /// <param name="parameter">Ein Parameter, der bei der Ausführung des Befehls verwendet werden kann.</param>
-        /// <returns>True, wenn der Befehl ausgeführt werden kann; andernfalls false.</returns>
+        /// <param name="parameter">A parameter that can be used by the command.</param>
+        /// <returns>True if the command can execute; otherwise, false.</returns>
         public bool CanExecute(object parameter)
         {
             return _canExecute == null || _canExecute();
         }
 
         /// <summary>
-        /// Führt die mit dem Befehl verknüpfte Aktion aus.
+        /// Executes the action associated with the command.
         /// </summary>
-        /// <param name="parameter">Ein Parameter, der bei der Ausführung des Befehls verwendet werden kann.</param>
+        /// <param name="parameter">A parameter that can be used by the command.</param>
         public void Execute(object parameter)
         {
             _execute();
         }
 
         /// <summary>
-        /// Tritt auf, wenn sich die Ausführungsfähigkeit des Befehls ändert.
+        /// Occurs when changes occur that affect whether or not the command should execute.
         /// </summary>
         public event EventHandler CanExecuteChanged
         {
@@ -52,22 +52,41 @@ namespace KMS2_02_LE_03_01.MVVM
         }
     }
 
+    /// <summary>
+    /// A generic implementation of ICommand used for binding commands to the user interface with a parameter.
+    /// </summary>
+    /// <typeparam name="T">The type of the command parameter.</typeparam>
     public class CustomRelayCommand<T> : ICommand
     {
         private readonly Action<T> _execute;
         private readonly Func<T, bool> _canExecute;
 
+        /// <summary>
+        /// Initializes a new instance of the CustomRelayCommand class.
+        /// </summary>
+        /// <param name="execute">The action to be executed when the command is invoked.</param>
+        /// <param name="canExecute">The function that determines whether the command can execute.</param>
+        /// <exception cref="ArgumentNullException">Thrown if the execute argument is null.</exception>
         public CustomRelayCommand(Action<T> execute, Func<T, bool> canExecute = null)
         {
             _execute = execute ?? throw new ArgumentNullException(nameof(execute));
             _canExecute = canExecute;
         }
 
+        /// <summary>
+        /// Determines whether the command can execute.
+        /// </summary>
+        /// <param name="parameter">A parameter that can be used by the command.</param>
+        /// <returns>True if the command can execute; otherwise, false.</returns>
         public bool CanExecute(object parameter)
         {
             return _canExecute == null || _canExecute((T)parameter);
         }
 
+        /// <summary>
+        /// Executes the action associated with the command.
+        /// </summary>
+        /// <param name="parameter">A parameter that can be used by the command.</param>
         public void Execute(object parameter)
         {
             _execute((T)parameter);

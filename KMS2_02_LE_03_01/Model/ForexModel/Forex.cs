@@ -4,6 +4,6 @@ namespace KMS2_02_LE_03_01.Model
 {
     public class Forex
     {
-        public Dictionary<string,double> Data { get; set; }
+        public Dictionary<string, double> Data { get; set; }
     }
 }

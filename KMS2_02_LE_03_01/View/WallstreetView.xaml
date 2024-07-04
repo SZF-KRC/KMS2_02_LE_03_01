@@ -20,7 +20,7 @@
         <!-- List of Articles -->
         <ListBox x:Name="lstTitles" Grid.Row="0" Grid.ColumnSpan="2" Margin="10" 
                  ItemsSource="{Binding Articles}" DisplayMemberPath="title" SelectedItem="{Binding SelectedArticle}" 
-                 Background="#F0F0F0" BorderBrush="#D3D3D3" BorderThickness="1" MaxHeight="200" />
+                 Background="Transparent"  BorderThickness="0" MaxHeight="200" FontWeight="Bold" />
 
         <!-- Image -->
         <Image Source="{Binding SelectedArticle.urlToImage}" Grid.Row="1" Grid.Column="1" Margin="10" 
